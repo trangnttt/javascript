@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form method="POST" id="form1">
+    <label for="">UserName</label>
+    <input type="text" name="username" id="username">
+    <br> <br>
+    <label for="">Password</label>
+    <input type="password" name="password" id="password"><br> <br>
+    <button type="submit" onclick="step()">Next</button>
+  </form>
+  <br><br>
+
+  <form method="POST" id="form2" style="display:none">
+    <label for="">Địa chỉ</label>
+    <input type="text" id="address">
+    <br> <br>
+    <label for="">Sđt</label>
+    <input type="tel" id="phone"><br> <br>
+    <button type="submit">Next</button>
+  </form>
+  <br><br>
+
+  <form method="POST" id="form3" style="display:none">
+    <label for="">Email</label>
+    <input type="email" id="email">
+    <br> <br>
+    <label for="">Fax</label>
+    <input type="tel" id="fax"><br> <br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h1 id="title"></h1>
+
+
+  <script>
+    
+    function form1() {
+      var frm = document.getElementById("form1");
+      frm.addEventListener("submit", function (event) {
+        event.preventDefault();
+      });
+      return new Promise(function (myResolve, myReject) {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        if (username != '' && password != '') {
+          console.log('Thành công bước 1');
+          myResolve([username, password]);
+          document.getElementById("form2").style.display = "block";
+        }
+        else {
+          myReject('thất bại bước 1');
+
+        }
+      })
+    }
+
+    function form2() {
+      var address;
+      var phone;
+      var frm2 = document.getElementById("form2");
+      frm2.addEventListener("submit", function (event) {
+        address = document.getElementById('address').value;
+        phone = document.getElementById('phone').value;
+        event.preventDefault();
+        return new Promise(function (myResolve, myReject) {
+          if (address != '' && address != undefined && phone != '' && phone != undefined) {
+            console.log('Thành công bước 2');
+            myResolve([address, phone]);
+            document.getElementById("form3").style.display = "block";
+          }
+          else {
+            myReject('thất bại bước 2');
+          }
+        })
+
+      });
+    }
+
+    function form3() {
+      var email;
+      var fax;
+      var frm3 = document.getElementById("form3");
+      frm3.addEventListener("submit", function (event) {
+        email = document.getElementById('email').value;
+        fax = document.getElementById('fax').value;
+        event.preventDefault();
+        return new Promise(function (myResolve, myReject) {
+          if (email != '' && email != undefined && fax != '' && fax != undefined) {
+            console.log('Thành công bước 3');
+            myResolve([email, fax]);
+            document.getElementById("title").innerHTML = 'Đăng nhập thành công';
+          }
+          else {
+            myReject('thất bại bước 3');
+          }
+        });
+      });
+    }
+
+    function step() {
+      form1().then(function (params) {
+        // console.log(params);
+        return form2(params);
+      }).then(function (respone) {
+        // console.log(respone)
+        return form3();
+      }).then(function (respone) {
+        // console.log(respone)
+      }).catch(function (err) {
+        console.log('err: ', err);
+      });
+    }
+  </script>
+</body>
+</html>

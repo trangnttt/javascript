@@ -1,3 +1,4 @@
+<!-- nhập đầy đủ thông tin 1 form mới qua form khác dùng callback -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +7,71 @@
   <title>Document</title>
 </head>
 <body>
-  <h1>Learn js</h1>
+  <form method="POST" id="form1">
+    <label for="">UserName</label>
+    <input type="text" name="username" id="username">
+    <br> <br>
+    <label for="">Password</label>
+    <input type="password" name="password" id="password"><br> <br>
+    <button type="submit" onclick="form1()">Next</button>
+  </form>
+  <br><br>
+
+  <form method="POST" id="form2">
+    <label for="">Địa chỉ</label>
+    <input type="text" id="address">
+    <br> <br>
+    <label for="">Sđt</label>
+    <input type="tel" id="phone"><br> <br>
+    <button type="submit">Next</button>
+  </form>
+  <br><br>
+
+  <form method="POST" id="form3">
+    <label for="">Email</label>
+    <input type="email" id="email">
+    <br> <br>
+    <label for="">Fax</label>
+    <input type="tel" id="fax"><br> <br>
+    <button type="submit">Submit</button>
+  </form>
   <script>
-    function test1() {
-      test2();
+    function form1(s) {
+      var frm = document.getElementById("form1");
+      frm.addEventListener("submit", function (event) {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        form2(username, password);
+        event.preventDefault();
+      })
     }
-    function test2() {
-      console.log('aaa');
+
+    function form2(username, password) {
+      if (username != '' && password != '') {
+        var frm2 = document.getElementById("form2");
+        frm2.addEventListener("submit", function (event) {
+          console.log(username, password);
+          var address = document.getElementById('address').value;
+          var phone = document.getElementById('phone').value;
+          form3(address, phone)
+          event.preventDefault();
+        })
+      }
     }
-    test1();
+
+    function form3(address, phone) {
+      if (address != '' && phone != '') {
+        console.log(address, phone)
+        var frm3 = document.getElementById("form3");
+        frm3.addEventListener("submit", function (event) {
+          var email = document.getElementById('email').value;
+          var fax = document.getElementById('fax').value;
+          console.log(email,fax);
+          event.preventDefault();
+        })
+      }
+    }
+
   </script>
 </body>
 </html>
