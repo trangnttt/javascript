@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  
+  <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
 </head>
 <body>
   <form method="POST" id="form1">
@@ -37,9 +39,8 @@
 
   <h1 id="title"></h1>
 
-
   <script>
-    
+   
     function form1() {
       var frm = document.getElementById("form1");
       frm.addEventListener("submit", function (event) {
@@ -55,7 +56,6 @@
         }
         else {
           myReject('thất bại bước 1');
-
         }
       })
     }
