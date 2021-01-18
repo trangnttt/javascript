@@ -1,0 +1,67 @@
+<!-- http Request  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./assets/css/global.css">
+</head>
+<body>
+  <div class="l-container">
+    <h3 class="u-text-center" id="demo1"></h3>
+    <h3 class="u-text-center" id="demo2"></h3>
+  </div>
+
+  <script>
+    const request = 'http://learn.lc/api.php';
+    const request2 = 'http://learn.lc/api2.php';
+
+    function get(requestURL) {
+      return new Promise(function (resolve, reject) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", requestURL, true);
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            if (this.responseText == '""') {
+              reject('data trống');
+            }
+            else {
+              resolve(this.responseText);
+            }
+          }
+          else if (this.status == 404) {
+            reject('404 (Not Found)');
+          }
+        };
+        xhttp.send(null);
+      });
+    }
+
+    function get2(requestURL2) {
+      return new Promise(function (resolve, reject) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("GET", requestURL2 + "?fname=Henry&lname=Ford", true);
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            resolve(this.responseText);
+          }
+          else if (this.status == 404) {
+            reject('404 (Not Found)');
+          }
+        };
+        xhttp.send(null);
+      });
+    }
+
+    get(request)
+      .then(function (data) {
+        return get2(request2);
+      })
+      .catch(function (error) {
+        console.log('error: ', error);
+      });
+  </script>
+</body>
+</html>
