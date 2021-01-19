@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+    function staff() {
+      let name = 'abc';
+      let email = 'abc@gmail.com';
+      const getName = function () {
+        console.log(name);
+      }
+      const getEmail = function () {
+        console.log(email);
+      }
+      const addName = function (nameNew) {
+        name = nameNew;
+        console.log(name);
+      }
+      return {
+        getName: getName,
+        getEmail: getEmail,
+        addName: addName,
+      }
+    }
+    var myFunc = staff();
+    myFunc.getName();
+    myFunc.getEmail();
+    myFunc.addName('son');
+    myFunc.getName();
+  </script>
+</body>
+</html>
